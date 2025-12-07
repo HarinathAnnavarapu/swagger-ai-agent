@@ -1,0 +1,24 @@
+# Node / build
+node_modules/
+dist/
+coverage/
+
+# Env
+.env
+.env.local
+
+# Editor
+.vscode/
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Artifacts and runtime
+.artifacts/
+logs/
+
+# OS
+Thumbs.db
