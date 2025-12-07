@@ -1,7 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import specRoutes from "../api/routes/spec.routes";
-import { specRepository } from "./container";
+import envRoutes from "../api/routes/environment.routes";
+import { specRepository, envRepository } from "./container";
 
 // minimal server bootstrap for local development and integration tests
 const app = express();
@@ -11,10 +12,15 @@ app.use(bodyParser.json({ limit: "2mb" }));
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 
 // mount API routes
+// Mount spec and environment routes at both `/api` and root for backwards-compatibility with existing clients
 app.use("/api", specRoutes);
+app.use("/api", envRoutes);
+app.use("/", specRoutes);
+app.use("/", envRoutes);
 
 // expose app and container for tests and further wiring
-export { app, specRepository };
+// expose app and container instances for tests and further wiring
+export { app, specRepository, envRepository };
 
 // start server if invoked directly
 if (require.main === module) {
